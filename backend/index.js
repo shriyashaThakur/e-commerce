@@ -1,3 +1,4 @@
+require('dotenv').config(); // Load environment variables
 const port = process.env.PORT || 4000;
 const express = require("express");
 const app = express();
@@ -13,7 +14,16 @@ app.use(express.json());
 app.use(cors());    
 
 //database connection with monogodb
-mongoose.connect("mongodb+srv://shriyashathakur06:shri%40060904@cluster0.kclrg.mongodb.net/e-commerce");
+//mongoose.connect("mongodb+srv://shriyashathakur06:shri%40060904@cluster0.kclrg.mongodb.net/e-commerce");
+
+//database connection with MongoDB
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+.then(() => console.log("MongoDB Connected"))
+.catch(err => console.log("Error connecting to MongoDB: ", err));
+
 
 //API creation
     
